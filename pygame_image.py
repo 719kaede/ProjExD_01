@@ -8,8 +8,8 @@ def main():
     clock  = pg.time.Clock()
     bg_img = pg.image.load("ex01/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex01/fig/3.png")
+    bg_img2 = pg.transform.flip(bg_img, True, False)
     kk_img = pg.transform.flip(kk_img, True, False)
-
     kk_img2 = pg.transform.rotozoom(kk_img, 2, 1.0)
     kk_img3 = pg.transform.rotozoom(kk_img, 4, 1.0)
     kk_img4 = pg.transform.rotozoom(kk_img, 6, 1.0)
@@ -21,15 +21,18 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
-        screen.blit(bg_img, [-(tmr%1600), 0])
-        screen.blit(bg_img, [-(tmr+1600)%1600, 0])
+        screen.blit(bg_img, [-(tmr%3200), 0])
+        screen.blit(bg_img2, [1600-(tmr%3200), 0])
+        screen.blit(bg_img, [3200-tmr%3200, 0])
+        screen.blit(bg_img2, [4800-(tmr%3200), 0])
+
         if tmr%12 <= 5:
             screen.blit(kk_imgl[tmr%6], [300, 200])
         else:
             screen.blit(kk_imgl[5-(tmr%6)], [300, 200])
         pg.display.update()
         tmr += 1        
-        clock.tick(10)
+        clock.tick(100)
 
 
 if __name__ == "__main__":
